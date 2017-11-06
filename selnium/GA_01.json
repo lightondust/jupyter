@@ -1,0 +1,23 @@
+{
+	"LOGIN_ADD" : "test182@chickenmail01.techfirm.co.jp",
+	"LOGIN_PW" : "test182pass",
+	"TAG_NAME" : "TAG_NEW_NAME",
+
+	"GMAIL_ACCOUNT_ADD" : "testtaro20170516@gmail.com",
+	"GMAIL_ACCOUNT_ID" : "testtaro20170516@gmail.com",
+	"GMAIL_ACCOUNT_PW" : "taro20170516",
+	"GMAIL_ACCOUNT_NAME" : "高橋雅彦",
+	"GMAIL_ACCOUNT_SERVER" : "imap.gmail.com",
+	"GMAIL_ACCOUNT_SSL" : true,
+
+	"GMAIL_ACCOUNT_AFTER_NAME" : "Gmailボックス",
+	
+	
+	"FILE_LIST_MAIL" : ["test_mail_BBQ"],
+    "FILE_LIST_ADDRESS" : ["test_add_all"],
+	"DATA_FOLDER" : "data_file",
+	"IMPORT_MAILBOX_NAME" : "BBQ",
+	"IMPORT_MAIL_SUB" : "私物の持ち込み",
+	"CONFIRM_MAIL_SUB" : "ちょっとまって"
+	
+}

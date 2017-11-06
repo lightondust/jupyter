@@ -1,0 +1,9 @@
+{
+	"LOGIN_ADD" : "test180@chickenmail01.techfirm.co.jp",
+	"LOGIN_PW" : "test180pass",
+
+	"FILE_LIST_EML" : ["spam"],
+	"DATA_FOLDER": "data_file"
+	
+}
+

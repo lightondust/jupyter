@@ -1,0 +1,21 @@
+{
+	"LOGIN_ADD" : "test171@chickenmail01.techfirm.co.jp",
+	"LOGIN_PW" : "test171pass",
+	"TAG_NAME" : "TAG_NEW_NAME",
+
+	"ADDRESS_NAME" : "追加アドレスブック",
+	"ADDRESS_BOOK_FIRST" : "アドレスブック_データ01",
+	"ADDRESS_GROUP_NAME" : "追加アドレスグループ_",
+	"ADDRESS_GROUP_MAIL" : "test_group_member_address@chickenmail01.techfirm.co.jp",
+	"ADDRESS_GROUP_MEMBAR_NAME" : "コウタ",
+	
+	"FAMILY_NAME" : "高橋",
+	"LAST_NAME" : "湯治",
+	"FAMILY_NAME_KANA" : "タカハシ",
+	"LAST_NAME_KANA" : "トウジ",
+	"COMPANY" : "日本カンパニー",
+	"COMPANY_KANA" : "ニホンカンパニー",
+	"MAIL_ADDRESS" : "test171@chickenmail01.techfirm.co.jp",
+	"ADDRESS_BOOK" : "連絡先"
+
+}

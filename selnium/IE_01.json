@@ -1,0 +1,6 @@
+{
+    "file_list_mail": ["test_mail_BBQ"],
+    "file_list_address": ["test_add_all"],
+    "data_folder": "data_file",
+    "delete_initial_mail": true
+}
