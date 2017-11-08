@@ -1,8 +1,64 @@
+
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8" />
-<title>Jupyterとは</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+<title>Jupyterの遊び方 slides</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<!-- General and theme style sheets -->
+<link rel="stylesheet" href="reveal.js/css/reveal.css">
+<link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+}
+
+</script>
+
+<!--[if lt IE 9]>
+<script src="reveal.js/lib/js/html5shiv.js"></script>
+<![endif]-->
+
+<!-- Loading the mathjax macro -->
+<!-- Load mathjax -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration -->
+
+<!-- Get Font-awesome from cdn -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.css">
 
 <style type="text/css">
     /*!
@@ -11718,1612 +11774,216 @@ ul.typeahead-list > li > a {
 
 <style type="text/css">
 /* Overrides of notebook CSS for static HTML export */
-body {
-  overflow: visible;
-  padding: 8px;
+.reveal {
+  font-size: 160%;
 }
-
-div#notebook {
-  overflow: visible;
-  border-top: none;
-}@media print {
-  div.cell {
-    display: block;
-    page-break-inside: avoid;
-  } 
-  div.output_wrapper { 
-    display: block;
-    page-break-inside: avoid; 
-  }
-  div.output { 
-    display: block;
-    page-break-inside: avoid; 
-  }
+.reveal pre {
+  width: inherit;
+  padding: 0.4em;
+  margin: 0px;
+  font-family: monospace, sans-serif;
+  font-size: 80%;
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+}
+.reveal pre code {
+  padding: 0px;
+}
+.reveal section img {
+  border: 0px solid black;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0);
+}
+.reveal i {
+  font-style: normal;
+  font-family: FontAwesome;
+  font-size: 2em;
+}
+.reveal .slides {
+  text-align: left;
+}
+.reveal.fade {
+  opacity: 1;
+}
+.reveal .progress {
+  position: static;
+}
+.reveal .controls .navigate-left,
+.reveal .controls .navigate-left.enabled {
+  border-right-color: #727272;
+}
+.reveal .controls .navigate-left.enabled:hover,
+.reveal .controls .navigate-left.enabled.enabled:hover {
+  border-right-color: #dfdfdf;
+}
+.reveal .controls .navigate-right,
+.reveal .controls .navigate-right.enabled {
+  border-left-color: #727272;
+}
+.reveal .controls .navigate-right.enabled:hover,
+.reveal .controls .navigate-right.enabled.enabled:hover {
+  border-left-color: #dfdfdf;
+}
+.reveal .controls .navigate-up,
+.reveal .controls .navigate-up.enabled {
+  border-bottom-color: #727272;
+}
+.reveal .controls .navigate-up.enabled:hover,
+.reveal .controls .navigate-up.enabled.enabled:hover {
+  border-bottom-color: #dfdfdf;
+}
+.reveal .controls .navigate-down,
+.reveal .controls .navigate-down.enabled {
+  border-top-color: #727272;
+}
+.reveal .controls .navigate-down.enabled:hover,
+.reveal .controls .navigate-down.enabled.enabled:hover {
+  border-top-color: #dfdfdf;
+}
+.reveal .progress span {
+  background: #727272;
+}
+div.input_area {
+  padding: 0.06em;
+}
+div.code_cell {
+  background-color: transparent;
+}
+div.prompt {
+  width: 11ex;
+  padding: 0.4em;
+  margin: 0px;
+  font-family: monospace, sans-serif;
+  font-size: 80%;
+  text-align: right;
+}
+div.output_area pre {
+  font-family: monospace, sans-serif;
+  font-size: 80%;
+}
+div.output_prompt {
+  /* 5px right shift to account for margin in parent container */
+  margin: 5px 5px 0 0;
+}
+div.text_cell.rendered .rendered_html {
+  /* The H1 height seems miscalculated, we are just hidding the scrollbar */
+  overflow-y: hidden;
+}
+a.anchor-link {
+  /* There is still an anchor, we are only hidding it */
+  display: none;
+}
+.rendered_html p {
+  text-align: inherit;
+}
+::-webkit-scrollbar
+{
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar *
+{
+  background:transparent;
+}
+::-webkit-scrollbar-thumb
+{
+  background: #727272 !important;
 }
 </style>
 
 <!-- Custom stylesheet, it must be in the same directory as the html file -->
 <link rel="stylesheet" href="custom.css">
 
-<!-- Loading mathjax macro -->
-<!-- Load mathjax -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
-    <!-- MathJax configuration -->
-    <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-            processEscapes: true,
-            processEnvironments: true
-        },
-        // Center justify equations in code and markdown cells. Elsewhere
-        // we use CSS to left justify single line equations in code cells.
-        displayAlign: 'center',
-        "HTML-CSS": {
-            styles: {'.MathJax_Display': {"margin": 0}},
-            linebreaks: { automatic: true }
-        }
-    });
-    </script>
-    <!-- End of mathjax configuration --></head>
+</head>
+
+
 <body>
-  <div tabindex="-1" id="notebook" class="border-box-sizing">
-    <div class="container" id="notebook-container">
 
+
+<div class="reveal">
+<div class="slides">
+<section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Jupyter-Notebook&#32057;&#20171;">Jupyter Notebook&#32057;&#20171;<a class="anchor-link" href="#Jupyter-Notebook&#32057;&#20171;">&#182;</a></h1>
+<p style="font-size:50px;margin:20px">Jupyterの遊び方</p>
 </div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>コードを書いてその場で実行し、結果を確認できるツール（オープンソース）。  </li>
-<li>markdownで注釈をつけられて、技術ノートや簡単な発表資料を作るのに適している。  </li>
-</ul>
-<p>(元はipython notbook、その後ＣやＣ＃などほかの言語にも対応したのでJupyter Notebookとなった。)</p>
-<p>例：</p>
-<p>Pythonで日付</p>
-<p>class datetime.date:
-理想的な naive な日付で、これまでもこれからも現在のグレゴリオ暦 (Gregorian calender) が有効であることを仮定しています。 属性は year, month,および day です。</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
-<span class="n">date_v</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">date_v</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>2017-11-01
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">年</span><span class="si">{}</span><span class="s2">月</span><span class="si">{}</span><span class="s2">日&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">date_v</span><span class="o">.</span><span class="n">year</span><span class="p">,</span><span class="n">date_v</span><span class="o">.</span><span class="n">month</span><span class="p">,</span><span class="n">date_v</span><span class="o">.</span><span class="n">day</span><span class="p">))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>2017年11月1日
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="&#12452;&#12531;&#12473;&#12488;&#12540;&#12523;">&#12452;&#12531;&#12473;&#12488;&#12540;&#12523;<a class="anchor-link" href="#&#12452;&#12531;&#12473;&#12488;&#12540;&#12523;">&#182;</a></h2><p><a href="http://jupyter.org/install.html">http://jupyter.org/install.html</a></p>
-<ul>
-<li><p>方法1 pythonをインストールしてから、コマンドプロンプトで「pip install jupyter」</p>
-</li>
-<li><p>方法2（公式ページおすすめ） Anacondaはpythonも一緒にインストールしてくれる</p>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="&#36215;&#21205;">&#36215;&#21205;<a class="anchor-link" href="#&#36215;&#21205;">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>コマンドプロンプトで「jupyter notebook」</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="&#20351;&#12356;&#26041;">&#20351;&#12356;&#26041;<a class="anchor-link" href="#&#20351;&#12356;&#26041;">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><a href="http://jupyter-notebook.readthedocs.io/en/stable/examples/Notebook/Notebook%20Basics.html">http://jupyter-notebook.readthedocs.io/en/stable/examples/Notebook/Notebook%20Basics.html</a></p>
-<ul>
-<li><p>編集モード（edit mode）でセルの編集。</p>
-</li>
-<li><p>操作モード(command mode)でセルの操作や実行</p>
-</li>
-</ul>
-<p>セルには主にコード(code)とマークダウン(markdown)の二種類があり、編集バーで切り替えられる。
-（操作モードで「m」を押すとマークダウンモード、「y」を押すとコードモードに切り替え）</p>
-<p>その他、編集バーでセルの追加、切り取り、移動、実行などもできる。</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>よく使うショートカット(操作モード):</strong></p>
-<ul>
-<li>「a」(現在にいるセルの前)と「b」(現在にいるセルの後ろ)にセル追加。</li>
-<li>「x」でセル切り取り（削除）、「v」で貼り付け、「c」でコピー</li>
-<li>「Shift+Enter」か「Ctrl+Enter」でセル実行</li>
-<li>「m」と「y」でセルのcodeとmarkdown切り替え</li>
-<li>「Enter」でセル編集</li>
-<li>「Shift+方向キー」で複数セル選択</li>
-<li>（一番重要）「h」：ショートカットキー一覧</li>
-</ul>
-<p><strong>よく使うショートカット(編集モード):</strong></p>
-<ul>
-<li>「tab」：自動補完</li>
-<li>ほかいろいろ（VS CodeStudioと似ている感じがする）</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>拡張機能（extension）:</strong></p>
-<p><a href="https://github.com/ipython-contrib/jupyter_contrib_nbextensions">https://github.com/ipython-contrib/jupyter_contrib_nbextensions</a></p>
-<ul>
-<li>ステップ1, pip install jupyter_contrib_nbextensions</li>
-<li>ステップ2, jupyter contrib nbextension install --user</li>
-</ul>
-<p>でインストールすれば、ファイル選択画面へ行くとファイルタブの右端にExtensionタブができる。</p>
-<p><img src="img/extension.PNG" alt="extension.PNG"></p>
-<div style="text-align:center">(ドラッグアンドドロップで画像も貼れる)</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>おすすめ：</p>
-<ul>
-<li>Collapsible Headings: markdownの見出しごとに畳み込みできる（構造が分かりやすくなる）</li>
-<li>Hinterland：常に自動補完（好き嫌いがあるかも）</li>
-<li>pythonMarkdown:パイソ変数をmarkdownに埋め込む</li>
-<li>equation auto numbering：tex方程式の番号付け（数理系ノートでは超重要、出来ればref機能もほしい）</li>
-<li>table of contents:見出しを元に目録を作ってサイド―バーなどに表示してくれる</li>
-<li>variable inspector:変数と中身の一覧</li>
-<li>rise:スライド発表、発表しながらコードを動かせる、collapsible headingと相性が悪い（別インストールが必要）</li>
-</ul>
-<p>riseのインストール：</p>
-<p><code>pip install RISE
-jupyter-nbextension install rise --py --sys-prefix
-jupyter-nbextension enable rise --py --sys-prefix</code></p>
-<p><a href="https://qiita.com/cvusk/items/d425751ba663dc8c6517">https://qiita.com/cvusk/items/d425751ba663dc8c6517</a></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>その他</strong></p>
-<ul>
-<li>magic code</li>
-<li>commandline command実行</li>
-<li>...</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="&#22810;&#35328;&#35486;">&#22810;&#35328;&#35486;<a class="anchor-link" href="#&#22810;&#35328;&#35486;">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Kernel一覧</strong><br>
-<a href="https://github.com/jupyter/jupyter/wiki/Jupyter-kernels">https://github.com/jupyter/jupyter/wiki/Jupyter-kernels</a></p>
-<p>java:scijava-jupyter-kernel<br>
-<a href="https://github.com/scijava/scijava-jupyter-kernel">https://github.com/scijava/scijava-jupyter-kernel</a></p>
-<p>C#:ICSharp<br>
-<a href="https://github.com/zabirauf/icsharp">https://github.com/zabirauf/icsharp</a></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="magic-command&#12391;&#23455;&#34892;">magic command&#12391;&#23455;&#34892;<a class="anchor-link" href="#magic-command&#12391;&#23455;&#34892;">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip install jupyter_contrib_nbextensions
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Collecting jupyter_contrib_nbextensions
-  Downloading jupyter_contrib_nbextensions-0.3.3-py2.py3-none-any.whl (20.8MB)
-Collecting jupyter-contrib-core&gt;=0.3.3 (from jupyter_contrib_nbextensions)
-  Using cached jupyter_contrib_core-0.3.3-py2.py3-none-any.whl
-Collecting pyyaml (from jupyter_contrib_nbextensions)
-  Using cached PyYAML-3.12.tar.gz
-Requirement already satisfied: notebook&gt;=4.0 in c:\users\zhang\python\python36-64\lib\site-packages (from jupyter_contrib_nbextensions)
-Requirement already satisfied: nbconvert&gt;=4.2 in c:\users\zhang\python\python36-64\lib\site-packages (from jupyter_contrib_nbextensions)
-Requirement already satisfied: traitlets&gt;=4.1 in c:\users\zhang\python\python36-64\lib\site-packages (from jupyter_contrib_nbextensions)
-Collecting lxml&gt;=3.8.0 (from jupyter_contrib_nbextensions)
-  Downloading lxml-4.1.0-cp36-cp36m-win_amd64.whl (3.5MB)
-Requirement already satisfied: tornado in c:\users\zhang\python\python36-64\lib\site-packages (from jupyter_contrib_nbextensions)
-Collecting jupyter-latex-envs&gt;=1.3.8 (from jupyter_contrib_nbextensions)
-  Using cached jupyter_latex_envs-1.3.8.4.tar.gz
-Requirement already satisfied: ipython-genutils in c:\users\zhang\python\python36-64\lib\site-packages (from jupyter_contrib_nbextensions)
-Requirement already satisfied: jupyter-core in c:\users\zhang\python\python36-64\lib\site-packages (from jupyter_contrib_nbextensions)
-Collecting jupyter-highlight-selected-word&gt;=0.0.10 (from jupyter_contrib_nbextensions)
-  Downloading jupyter_highlight_selected_word-0.1.0-py2.py3-none-any.whl
-Collecting jupyter-nbextensions-configurator&gt;=0.2.8 (from jupyter_contrib_nbextensions)
-  Using cached jupyter_nbextensions_configurator-0.2.8-py2.py3-none-any.whl
-Requirement already satisfied: setuptools in c:\users\zhang\python\python36-64\lib\site-packages (from jupyter-contrib-core&gt;=0.3.3-&gt;jupyter_contrib_nbextensions)
-Requirement already satisfied: jinja2 in c:\users\zhang\python\python36-64\lib\site-packages (from notebook&gt;=4.0-&gt;jupyter_contrib_nbextensions)
-Requirement already satisfied: ipykernel in c:\users\zhang\python\python36-64\lib\site-packages (from notebook&gt;=4.0-&gt;jupyter_contrib_nbextensions)
-Requirement already satisfied: nbformat in c:\users\zhang\python\python36-64\lib\site-packages (from notebook&gt;=4.0-&gt;jupyter_contrib_nbextensions)
-Requirement already satisfied: jupyter-client in c:\users\zhang\python\python36-64\lib\site-packages (from notebook&gt;=4.0-&gt;jupyter_contrib_nbextensions)
-Requirement already satisfied: pandocfilters&gt;=1.4.1 in c:\users\zhang\python\python36-64\lib\site-packages (from nbconvert&gt;=4.2-&gt;jupyter_contrib_nbextensions)
-Requirement already satisfied: bleach in c:\users\zhang\python\python36-64\lib\site-packages (from nbconvert&gt;=4.2-&gt;jupyter_contrib_nbextensions)
-Requirement already satisfied: entrypoints&gt;=0.2.2 in c:\users\zhang\python\python36-64\lib\site-packages (from nbconvert&gt;=4.2-&gt;jupyter_contrib_nbextensions)
-Requirement already satisfied: testpath in c:\users\zhang\python\python36-64\lib\site-packages (from nbconvert&gt;=4.2-&gt;jupyter_contrib_nbextensions)
-Requirement already satisfied: mistune&gt;=0.7.4 in c:\users\zhang\python\python36-64\lib\site-packages (from nbconvert&gt;=4.2-&gt;jupyter_contrib_nbextensions)
-Requirement already satisfied: pygments in c:\users\zhang\python\python36-64\lib\site-packages (from nbconvert&gt;=4.2-&gt;jupyter_contrib_nbextensions)
-Requirement already satisfied: six in c:\users\zhang\python\python36-64\lib\site-packages (from traitlets&gt;=4.1-&gt;jupyter_contrib_nbextensions)
-Requirement already satisfied: decorator in c:\users\zhang\python\python36-64\lib\site-packages (from traitlets&gt;=4.1-&gt;jupyter_contrib_nbextensions)
-Requirement already satisfied: ipython in c:\users\zhang\python\python36-64\lib\site-packages (from jupyter-latex-envs&gt;=1.3.8-&gt;jupyter_contrib_nbextensions)
-Requirement already satisfied: MarkupSafe&gt;=0.23 in c:\users\zhang\python\python36-64\lib\site-packages (from jinja2-&gt;notebook&gt;=4.0-&gt;jupyter_contrib_nbextensions)
-Requirement already satisfied: jsonschema!=2.5.0,&gt;=2.4 in c:\users\zhang\python\python36-64\lib\site-packages (from nbformat-&gt;notebook&gt;=4.0-&gt;jupyter_contrib_nbextensions)
-Requirement already satisfied: python-dateutil&gt;=2.1 in c:\users\zhang\python\python36-64\lib\site-packages (from jupyter-client-&gt;notebook&gt;=4.0-&gt;jupyter_contrib_nbextensions)
-Requirement already satisfied: pyzmq&gt;=13 in c:\users\zhang\python\python36-64\lib\site-packages (from jupyter-client-&gt;notebook&gt;=4.0-&gt;jupyter_contrib_nbextensions)
-Requirement already satisfied: html5lib!=0.9999,!=0.99999,&lt;0.99999999,&gt;=0.999 in c:\users\zhang\python\python36-64\lib\site-packages (from bleach-&gt;nbconvert&gt;=4.2-&gt;jupyter_contrib_nbextensions)
-Requirement already satisfied: prompt-toolkit&lt;2.0.0,&gt;=1.0.4 in c:\users\zhang\python\python36-64\lib\site-packages (from ipython-&gt;jupyter-latex-envs&gt;=1.3.8-&gt;jupyter_contrib_nbextensions)
-Requirement already satisfied: pickleshare in c:\users\zhang\python\python36-64\lib\site-packages (from ipython-&gt;jupyter-latex-envs&gt;=1.3.8-&gt;jupyter_contrib_nbextensions)
-Requirement already satisfied: jedi&gt;=0.10 in c:\users\zhang\python\python36-64\lib\site-packages (from ipython-&gt;jupyter-latex-envs&gt;=1.3.8-&gt;jupyter_contrib_nbextensions)
-Requirement already satisfied: colorama; sys_platform == &#34;win32&#34; in c:\users\zhang\python\python36-64\lib\site-packages (from ipython-&gt;jupyter-latex-envs&gt;=1.3.8-&gt;jupyter_contrib_nbextensions)
-Requirement already satisfied: simplegeneric&gt;0.8 in c:\users\zhang\python\python36-64\lib\site-packages (from ipython-&gt;jupyter-latex-envs&gt;=1.3.8-&gt;jupyter_contrib_nbextensions)
-Requirement already satisfied: wcwidth in c:\users\zhang\python\python36-64\lib\site-packages (from prompt-toolkit&lt;2.0.0,&gt;=1.0.4-&gt;ipython-&gt;jupyter-latex-envs&gt;=1.3.8-&gt;jupyter_contrib_nbextensions)
-Requirement already satisfied: parso==0.1.0 in c:\users\zhang\python\python36-64\lib\site-packages (from jedi&gt;=0.10-&gt;ipython-&gt;jupyter-latex-envs&gt;=1.3.8-&gt;jupyter_contrib_nbextensions)
-Building wheels for collected packages: pyyaml, jupyter-latex-envs
-  Running setup.py bdist_wheel for pyyaml: started
-  Running setup.py bdist_wheel for pyyaml: finished with status &#39;done&#39;
-  Stored in directory: C:\Users\zhang\AppData\Local\pip\Cache\wheels\2c\f7\79\13f3a12cd723892437c0cfbde1230ab4d82947ff7b3839a4fc
-  Running setup.py bdist_wheel for jupyter-latex-envs: started
-  Running setup.py bdist_wheel for jupyter-latex-envs: finished with status &#39;done&#39;
-  Stored in directory: C:\Users\zhang\AppData\Local\pip\Cache\wheels\16\ce\bb\c4baea43e79912edf809c78df79adfbd316fc13b73c6587b41
-Successfully built pyyaml jupyter-latex-envs
-Installing collected packages: jupyter-contrib-core, pyyaml, lxml, jupyter-latex-envs, jupyter-highlight-selected-word, jupyter-nbextensions-configurator, jupyter-contrib-nbextensions
-Successfully installed jupyter-contrib-core-0.3.3 jupyter-contrib-nbextensions-0.3.3 jupyter-highlight-selected-word-0.1.0 jupyter-latex-envs-1.3.8.4 jupyter-nbextensions-configurator-0.2.8 lxml-4.1.0 pyyaml-3.12
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>jupyter contrib nbextension install --user
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>[I 12:13:16 InstallContribNbextensionsApp] jupyter contrib nbextension install --user
-[W 12:13:16 InstallContribNbextensionsApp] Error: Cannot configure while the Jupyter notebook server is running
-[I 12:13:16 InstallContribNbextensionsApp] To perform actions even while a notebook server is running,you may use the flag
-    --skip-running-check
-Traceback (most recent call last):
-  File &#34;c:\users\zhang\python\python36-64\lib\runpy.py&#34;, line 193, in _run_module_as_main
-    &#34;__main__&#34;, mod_spec)
-  File &#34;c:\users\zhang\python\python36-64\lib\runpy.py&#34;, line 85, in _run_code
-    exec(code, run_globals)
-  File &#34;C:\Users\zhang\Python\Python36-64\Scripts\jupyter-contrib.EXE\__main__.py&#34;, line 9, in &lt;module&gt;
-  File &#34;c:\users\zhang\python\python36-64\lib\site-packages\jupyter_core\application.py&#34;, line 266, in launch_instance
-    return super(JupyterApp, cls).launch_instance(argv=argv, **kwargs)
-  File &#34;c:\users\zhang\python\python36-64\lib\site-packages\traitlets\config\application.py&#34;, line 658, in launch_instance
-    app.start()
-  File &#34;c:\users\zhang\python\python36-64\lib\site-packages\jupyter_contrib_core\application.py&#34;, line 50, in start
-    super(JupyterContribApp, self).start()
-  File &#34;c:\users\zhang\python\python36-64\lib\site-packages\jupyter_core\application.py&#34;, line 255, in start
-    self.subapp.start()
-  File &#34;c:\users\zhang\python\python36-64\lib\site-packages\jupyter_contrib_nbextensions\application.py&#34;, line 226, in start
-    super(ContribNbextensionsApp, self).start()
-  File &#34;c:\users\zhang\python\python36-64\lib\site-packages\jupyter_core\application.py&#34;, line 255, in start
-    self.subapp.start()
-  File &#34;c:\users\zhang\python\python36-64\lib\site-packages\jupyter_contrib_nbextensions\application.py&#34;, line 173, in start
-    toggle_install_files(self._toggle_value, **kwargs_files)
-  File &#34;c:\users\zhang\python\python36-64\lib\site-packages\jupyter_contrib_nbextensions\install.py&#34;, line 60, in toggle_install_files
-    &#39;Cannot configure while the Jupyter notebook server is running&#39;)
-jupyter_contrib_nbextensions.install.NotebookRunningError: Cannot configure while the Jupyter notebook server is running
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip install RISE
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Collecting RISE
-  Using cached rise-5.0.0-py2.py3-none-any.whl
-Requirement already satisfied: notebook&gt;=5.0.0 in c:\users\zhang\python\python36-64\lib\site-packages (from RISE)
-Requirement already satisfied: ipython-genutils in c:\users\zhang\python\python36-64\lib\site-packages (from notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: nbformat in c:\users\zhang\python\python36-64\lib\site-packages (from notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: traitlets&gt;=4.2.1 in c:\users\zhang\python\python36-64\lib\site-packages (from notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: jupyter-client in c:\users\zhang\python\python36-64\lib\site-packages (from notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: ipykernel in c:\users\zhang\python\python36-64\lib\site-packages (from notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: nbconvert in c:\users\zhang\python\python36-64\lib\site-packages (from notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: jupyter-core in c:\users\zhang\python\python36-64\lib\site-packages (from notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: jinja2 in c:\users\zhang\python\python36-64\lib\site-packages (from notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: tornado&gt;=4 in c:\users\zhang\python\python36-64\lib\site-packages (from notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: jsonschema!=2.5.0,&gt;=2.4 in c:\users\zhang\python\python36-64\lib\site-packages (from nbformat-&gt;notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: decorator in c:\users\zhang\python\python36-64\lib\site-packages (from traitlets&gt;=4.2.1-&gt;notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: six in c:\users\zhang\python\python36-64\lib\site-packages (from traitlets&gt;=4.2.1-&gt;notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: pyzmq&gt;=13 in c:\users\zhang\python\python36-64\lib\site-packages (from jupyter-client-&gt;notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: python-dateutil&gt;=2.1 in c:\users\zhang\python\python36-64\lib\site-packages (from jupyter-client-&gt;notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: ipython&gt;=4.0.0 in c:\users\zhang\python\python36-64\lib\site-packages (from ipykernel-&gt;notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: pandocfilters&gt;=1.4.1 in c:\users\zhang\python\python36-64\lib\site-packages (from nbconvert-&gt;notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: bleach in c:\users\zhang\python\python36-64\lib\site-packages (from nbconvert-&gt;notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: entrypoints&gt;=0.2.2 in c:\users\zhang\python\python36-64\lib\site-packages (from nbconvert-&gt;notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: mistune&gt;=0.7.4 in c:\users\zhang\python\python36-64\lib\site-packages (from nbconvert-&gt;notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: pygments in c:\users\zhang\python\python36-64\lib\site-packages (from nbconvert-&gt;notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: testpath in c:\users\zhang\python\python36-64\lib\site-packages (from nbconvert-&gt;notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: MarkupSafe&gt;=0.23 in c:\users\zhang\python\python36-64\lib\site-packages (from jinja2-&gt;notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: prompt-toolkit&lt;2.0.0,&gt;=1.0.4 in c:\users\zhang\python\python36-64\lib\site-packages (from ipython&gt;=4.0.0-&gt;ipykernel-&gt;notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: setuptools&gt;=18.5 in c:\users\zhang\python\python36-64\lib\site-packages (from ipython&gt;=4.0.0-&gt;ipykernel-&gt;notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: simplegeneric&gt;0.8 in c:\users\zhang\python\python36-64\lib\site-packages (from ipython&gt;=4.0.0-&gt;ipykernel-&gt;notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: jedi&gt;=0.10 in c:\users\zhang\python\python36-64\lib\site-packages (from ipython&gt;=4.0.0-&gt;ipykernel-&gt;notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: pickleshare in c:\users\zhang\python\python36-64\lib\site-packages (from ipython&gt;=4.0.0-&gt;ipykernel-&gt;notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: colorama; sys_platform == &#34;win32&#34; in c:\users\zhang\python\python36-64\lib\site-packages (from ipython&gt;=4.0.0-&gt;ipykernel-&gt;notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: html5lib!=0.9999,!=0.99999,&lt;0.99999999,&gt;=0.999 in c:\users\zhang\python\python36-64\lib\site-packages (from bleach-&gt;nbconvert-&gt;notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: wcwidth in c:\users\zhang\python\python36-64\lib\site-packages (from prompt-toolkit&lt;2.0.0,&gt;=1.0.4-&gt;ipython&gt;=4.0.0-&gt;ipykernel-&gt;notebook&gt;=5.0.0-&gt;RISE)
-Requirement already satisfied: parso==0.1.0 in c:\users\zhang\python\python36-64\lib\site-packages (from jedi&gt;=0.10-&gt;ipython&gt;=4.0.0-&gt;ipykernel-&gt;notebook&gt;=5.0.0-&gt;RISE)
-Installing collected packages: RISE
-Successfully installed RISE-5.0.0
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>jupyter-nbextension install rise --py --sys-prefix
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="&#20363;&#65306;Jupyter&#12391;Selenium&#12434;&#21205;&#12363;&#12375;&#12390;&#12415;&#12427;">&#20363;&#65306;Jupyter&#12391;Selenium&#12434;&#21205;&#12363;&#12375;&#12390;&#12415;&#12427;<a class="anchor-link" href="#&#20363;&#65306;Jupyter&#12391;Selenium&#12434;&#21205;&#12363;&#12375;&#12390;&#12415;&#12427;">&#182;</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Selenium&#12392;&#12399;">Selenium&#12392;&#12399;<a class="anchor-link" href="#Selenium&#12392;&#12399;">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>プログラムでブラウザを操作するツール。
-主には</p>
-<ul>
-<li>手軽に使えるSelenium IDE</li>
-<li>Javaやpython、Rucbyなどでコードを書いて動かすSelenium Webdriver</li>
-</ul>
-<p>があり、自動テストやスクレイピングの強力なツール。</p>
-<p>動的に生成されるページだと、コードが動かなかったり、要素が取りにくかったり、try＆errorで検証しながらコードを書くことも。</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="&#21205;&#12363;&#12377;">&#21205;&#12363;&#12377;<a class="anchor-link" href="#&#21205;&#12363;&#12377;">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>ブラウザを立ち上げる</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">selenium</span> <span class="k">import</span> <span class="n">webdriver</span>
-
-<span class="n">br</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Chrome</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">ModuleNotFoundError</span>                       Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-3-13d3a0dccd12&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
-<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span><span class="ansi-green-intense-fg ansi-bold">from</span> selenium <span class="ansi-green-intense-fg ansi-bold">import</span> webdriver
-<span class="ansi-green-fg">      2</span> 
-<span class="ansi-green-fg">      3</span> br <span class="ansi-yellow-intense-fg ansi-bold">=</span> webdriver<span class="ansi-yellow-intense-fg ansi-bold">.</span>Chrome<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-red-intense-fg ansi-bold">ModuleNotFoundError</span>: No module named &#39;selenium&#39;</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip install selenium
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Collecting selenium
-  Downloading selenium-3.6.0-py2.py3-none-any.whl (924kB)
-Installing collected packages: selenium
-Successfully installed selenium-3.6.0
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">selenium</span> <span class="k">import</span> <span class="n">webdriver</span>
-
-<span class="n">br</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Chrome</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>ウィンドウ最大化</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">br</span><span class="o">.</span><span class="n">maximize_window</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>URLを開く</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://www.techfirm.co.jp/&quot;</span>
-<span class="n">br</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>要素を探す</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">el</span><span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="s2">&quot;//*[contains(text(),&#39;人工知能&#39;)]&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">el</span><span class="o">.</span><span class="n">text</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt output_prompt">Out[5]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&#39;【 人工知能 】AIビジネス活用サービス&#39;</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">selenium.webdriver.common.action_chains</span> <span class="k">import</span> <span class="n">ActionChains</span>
-<span class="n">hover</span> <span class="o">=</span> <span class="n">ActionChains</span><span class="p">(</span><span class="n">br</span><span class="p">)</span><span class="o">.</span><span class="n">move_to_element</span><span class="p">(</span><span class="n">el</span><span class="p">)</span>
-<span class="n">hover</span><span class="o">.</span><span class="n">perform</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">br</span><span class="o">.</span><span class="n">save_screenshot</span><span class="p">(</span><span class="s2">&quot;img/screenshot.jpg&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt output_prompt">Out[7]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>True</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="attachment:screenshot.jpg" alt="screenshot.jpg"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">xpath</span> <span class="o">=</span> <span class="s2">&quot;//*[@style=&#39;top: px;&#39;]&quot;</span>
-<span class="n">el</span><span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="n">xpath</span><span class="p">)</span>
-<span class="n">br</span><span class="o">.</span><span class="n">save_screenshot</span><span class="p">(</span><span class="s2">&quot;img/screenshot.jpg&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
+<h1 id="Jupyter-Notbook">Jupyter Notbook<a class="anchor-link" href="#Jupyter-Notbook">&#182;</a></h1>
 </div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">el</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Windowを閉じる</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">br</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">reload_ext</span> clrmagic
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">CS</span> mypower System.dll
-
-public static double mypower(double x, double y)
-{
-    if (y == 0) return 1.0;
-    return System.Math.Pow(x,y);
-}
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt output_prompt">Out[15]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&lt;function clrmagic.create_cs_function.&lt;locals&gt;.&lt;lambda&gt;&gt;</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="magic">magic<a class="anchor-link" href="#magic">&#182;</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>magicコマンド一覧</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[46]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">magic</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>bashコマンドやshellコマンドを実行できる（bashの場合は「！」の代わりに%%を使う、らしい）</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[53]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span><span class="nb">echo</span> a
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>a
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[54]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>java -version
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>java version &#34;1.8.0_141&#34;
-Java(TM) SE Runtime Environment (build 1.8.0_141-b15)
-Java HotSpot(TM) 64-Bit Server VM (build 25.141-b15, mixed mode)
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[73]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>call ./bat/btecho jupyter
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>
-C:\Users\zhang\Documents\jupyter&gt;echo Hello, jupyter! 
-Hello, jupyter!
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[75]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip search selenium
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>odoo9-addon-web_selenium (9.0.1.0.2)              - Record your testcases with Selenium
-django-admin-testutils (1.0.6)                    - Helpers for writing selenium tests for the django admin
-aloe_webdriver (0.5.6)                            - Selenium webdriver extension for Aloe
-robotframework-angularjs (0.0.6)                  - An AngularJS extension to Robotframework&#39;s Selenium2Library
-appium_selector (1.3.2)                           - Creates a Tcl/Tk window to read connected Appium devices from Selenium Grid and display them for selection
-selenium-astride (0.2.2)                          - Framework to use Selenium loud and clear, astride. Use it with Django, Flask or your favourite web framework.
-selenium-aurelia (0.1.1)                          - Wrapper around selenium driver to ease testing of Aurelia based applications.
-pytest-axe (0.0.173)                              - pytest fixture for axe-selenium-python
-axe-selenium-python (1.1.0)                       - Python library to integrate axe and selenium for web                 accessibility testing.
-bandcamp_get (0.1.4)                              - automated music downloading via selenium
-behave-selenium (0.0.8)                           - High level behave steps to control Selenium
-robotframework-bjrobot (0.6.4)                    - BJRobot is a web testing library for Robot Framework
-that leverages the Selenium 3 (WebDriver) libraries.
-django-selenium-boilerplate (0.0.6)               - Boilerplate for setting up selenium tests in Django
-bonobo-selenium (0.1.0)                           - Bonobo Selenium Extension
-python-brimstone (0.20140122)                     - convenient selenium wrapper
-brome (1.2.1)                                     - Selenium Framework
-browler (0.1.3)                                   - Selenium Based Web Crawler
-browserstep (0.1.9)                               - Browser step provides common steps to be used by Behave for running browser tests with Selenium
-buster-selenium (0.1)                             - Manage buster.js slave browsers using selenium.
-webdriver-chauffeur (0.4.0)                       - A helpful wrapper around the formerly annoying stuff of using Selenium Webdriver
-selenium-chrome-screenshot (0.0.1)                - UNKNOWN
-django-selenium-clean (0.3.0)                     - Write clean Selenium tests in Django
-clover (0.2.2)                                    - Clover is a build tool that dynamically compiles JavaScript and Closure Template code. 
-
-
-Features
-########
-
-  * Simplifies development with the closure compiler, library and templates.
-  * Compiles javascript and soy templates on the fly
-  * Closure unit testing framework support
-  * Command line and web based test runners.
-    * Selenium support to run tests in various drivers. 
-  * Javascript internationalization support
-  * Sourcemap support
-  * Displays closure warnings and errors to the browsers console log.
-  * Allows a single configuration file defining the entire compilation; replacing build scripts/etc.
-collective.ploneseltest (1.0b2)                   - Selenium test support for Plone
-collective.recipe.seleniumrc (0.6.1.1)            - zc.buildout recipe for installing the Selenium RC distribution.
-selenium-components (0.2)                         - Page objects for common components
-selenium-configurator (0.1)                       - Helper API to define multiple webdrivers in config files.
-Core-Selenium (0.1.3)                             - Selenium framework source code
-dce-mh-selenium (0.3.0)                           - Selenium tasks and page objects for DCE Matterhorn
-robotframework-selenium2library-divfor (1.8.0.1)  - Web testing library for Robot Framework with locator wrapper feature
-django-selenium-test-runner (0.1.0)               - Django Selenium test runner.
-
-Incorporate functional testing into Django&#39;s manage.py test subcommand
-using Selenium web testing tools.
-django-webdriver (0.1.2)                          - Django app to run selenium webdriver tests.
-django-teamcity (0.1.2)                           - send test result to TeamCity and provide Selenium support
-django-selenium-login (1.0.2)                     - A quick login for selenium tests to be used in Django projects
-django-nose-selenium (0.7.3)                      - A nose plugin to run selenium tests with django
-django-externaltestserver (0.2.5)                 - Run your Django selenium tests against an external server
-django-selenium (0.9.8)                           - Django Selenium Integration
-django-functest (1.0.2)                           - Helpers for creating functional tests in Django, with a unified API for WebTest and Selenium tests.
-django_seleniumhelpers (1.1.2)                    - Extends django.test.LiveServerTestCase to make selenium testing even easier.
-djangosanetesting (0.5.11)                        - Integrate Django with nose, Selenium, Twill and more.
-Driloader (1.1.5)                                 - Driver downloader for Selenium
-dsgrid (0.1.6)                                    - Build and Manage a Selenium Grid using Docker.
-Dyson (1.1.2)                                     - Dyson Selenium framework.
-easy-selenium (0.1.1)                             - Tool to make the use of selenium library easier
-easy_test (0.0.1)                                 - A python mini framework for tests that use Selenium
-easyium (1.2.7)                                   - easy use of selenium and appium
-edw.seleniumtesting (1.0)                         - Selenium testing metapackage
-selenium-page-elements (0.1.5)                    - A small library for simplifying page objects.
-explicit (0.1.3)                                  - Easy explicit wait helpers for Selenium
-robotframework-extendedselenium2library (0.9.1)   - Extended Selenium2 web testing library for Robot Framework with AngularJS support
-externaltestserver (0.0.0)                        - Run your Django selenium tests against an external server
-eyes-selenium-images (3.3)                        - Applitools Eyes SDK For Selenium Python WebDriver
-eyes-selenium (3.10.4)                            - Applitools Eyes SDK For Selenium Python WebDriver
-robotframework-flexseleniumlibrary (0.3.1)        - Adobe Flex testing library for Robot Framework
-FlynnID (0.3)                                     - Registers Selenium nodes to a Selenium Grid hub.
-FoxPuppet (1.0.1)                                 - Firefox user interface testing model for use with Selenium
-golem-framework (0.3.0)                           - Test automation framework for functional tests using Selenium
-germanium (2.0.6)                                 - The germanium project: Selenium WebDriver testing API that doesn&#39;t disappoint.
-germaniumdrivers (2.0.6)                          - The germanium project: Selenium WebDriver testing API that doesn&#39;t disappoint. (tested WebDrivers package)
-ghostly (0.2.4)                                   - Lightweight API around Selenium Webdriver for end to end testing with Django.
-gocept.jasmine (0.6)                              - Jasmine integration for selenium.
-gocept.selenium (3.1.1)                           - Test-friendly Python API for Selenium and integration with web application frameworks.
-haufe.selenium (0.3.0)                            - A Python wrapper for controlling the Selenium Remote Server
-hecate (0.1.0)                                    - A selenium style testing library for console applications
-helium (1.8.6)                                    - Simple Web Automation based on Selenium
-hitchselenium (0.6.7)                             - Plugin to run Selenium with firefox using the Hitch testing framework.
-holmium.core (0.8.5)                              - selenium page objects and other utilities for test creation
-hotdog (1.7.7)                                    - Appium/Selenium testing framework deriving from unittest
-hunters (1.3.12)                                  - A spider automation framework, provide uniform API to use selenium and requests
-instabrade (0.0.7)                                - Selenium based Instagram Scraper
-kb_transaction (0.0.3.1)                          - Crawling KB bank transaction with IE Selenium
-knitter (0.4.1)                                   - Python Web Automation Test Framework with Selenium WebDriver
-kryptonium (0.1.4)                                - Automation Framework using Selenium
-lettuce_webdriver (0.3.5)                         - Selenium webdriver extension for lettuce
-selenium-smart-locator (0.2.0)                    - A (somewhat) smart locator class for Selenium.
-pytest-needle (0.3.0)                             - pytest plugin for visual testing websites using selenium
-ngSe (0.1.11)                                     - A Selenium browser for javascript frameworks
-simple-nose-selenium (0.2.1)                      - Run your Selenium TestCase&#39;s in chrome, firefox or saucelabs
-nose-selenium (0.07)                              - Control the WebDriver instance in your scripts with command-line options
-noseapp_selenium (1.2.3)                          - selenium extension for noseapp lib
-nx4_selenium_test (0.1)                           - Provides a Python class and apps which monitor      and/or stress-test the NoMachine NX4 web interface
-odooselenium (1.0.3)                              - Tools to interact with Odoo using Selenium
-padded-sel (1.2.1)                                - Selenium Webdriver wrapper to make it easy to interact with page elements and handle failures in the way you want to.
-pytest-selenium-pdiff (0.4.0)                     - A pytest package implementing perceptualdiff for Selenium tests.
-pintium (1.1.0)                                   - Pinterest + Selenium = Pintium
-planterbox-webdriver (0.4.0)                      - Steps for web testing using selenium and planterbox
-selenium-pom (0.1.4)                              - Page Object Model for Selenium
-pomade (0.0.4)                                    - Selenium PageObjects implementation with easy Sauce Labs integration
-Products.Zelenium (1.0.3)                         - Run Selenium test suites from within Zope2
-pscore (0.4.8)                                    - Python-Selenium framework module
-py.saunter (0.63)                                 - An opinionated Selenium framework
-pyautonium (0.0.0)                                - pyautogui + selenium (+ pyocr + google cloud vision)
-pybrowserstack (0.1.8)                            - Framework for running unit tests with Selenium on Browserstack
-pybrowsertest (0.0.5)                             - Facility to use Selenium
-pyhangouts (0.0.1)                                - A selenium-based client for Google Hangouts
-pyjoomatic (0.1a)                                 - Automating joomla through selenium
-pylenium (1.0)                                    - A wrapper around Selenium with a more pythonic interface
-pypo4sel.core (0.0.2)                             - page object wrapper for selenium webdriver
-PyPOM (1.2.0)                                     - python page object model for selenium
-PySelenium (1.0.2)                                - A wrapper for Selenium to allow easy development of automated tests for the web
-pyseleniumfox (0.1)                               - Create a firefox profile for use in selenium tests that includes a preconfigured selenium IDE, so that you can debug and write tests on the fly.
-pyseleniumjs (1.3.2)                              - Small library with javascript utilities for official Python selenium bindings.
-pytanium (0.1)                                    - Selenium wrapper to add additional features
-pytest-webdriver (1.2.11)                         - Selenium webdriver fixture for py.test
-pytest-selenium (1.11.1)                          - pytest plugin for Selenium
-pytest_sauce (0.3.3)                              - pytest_sauce provides sane and helpful methods worked
-    out in clearcode to run py.test tests with selenium/saucelabs
-selenium-saucelabs-python (0.3.1)                 - Sauce OnDemand driver for Python
-pytractor (0.2.1)                                 - Selenium testing for Angular.js apps
-pywad (0.1.4)                                     - The Python Web Auto Drive framework using selenium.webdriver.
-PyWebRunner (2.0.2)                               - A library that extends and improves the Selenium python library.
-rabird.selenium (0.8.1)                           - An extension library for selenium
-rcom.recipe.seleniumenv (1.0)                     - A recipe for setting a ready-to-use selenium RC environment
-requestium (0.1.4)                                - Adds a Selenium webdriver and parsel&#39;s parser to a request&#39;s Session object, and makes switching between them seamless. Handles cookie, proxy and header transfer.
-selenium-requests (1.3)                           - Extends Selenium WebDriver classes to include the request function from the Requests library, while doing all the needed cookie and request headers handling.
-selenium-respectful (0.1.0)                       - Minimalist Selenium webdriver wrapper to work within rate limits of any amount of services simultaneously. Parallel processing friendly.
-robotframework-selenium2accessibility (0.2.1)     - Robot Framework resources for automating accessibility tools
-robotframework-seleniumlibrary (3.0.0b3)          - Web testing library for Robot Framework
-robotframework-weblibrary (2.0.2.dev4)            - Web testing library for Robot Framework Extended with Selenium2Library
-robotframework-selenium2screenshots (0.7.2)       - Robot Framework keyword library for capturing annotated screenshots with Selenium2Library
-robotframework-selenium2library (3.0.0b1)         - Web testing library for Robot Framework
-RobotS2LScreenshot (0.1.1)                        - Provides additional keywords to augment screenshots capabilities of RobotFramework&#39;s Selenium2Library, namely cropping and masking to help with perceptual diff testing.
-ruamel.browser.server.selenium (0.1.2)            - selenium firefox browser plugin
-rube.core (0.1.2)                                 - A convenience layer on top of selenium
-sampyl (0.2.0)                                    - A wrapper for Selenium. This library uses custom data attributes to accelerate testing through the Selenium framework
-samuranium (0.0.1)                                - Wrapper for Selenium and Appium
-sbo-selenium (0.7.2)                              - Selenium testing framework for Django applications
-screencastpy (0.1.1)                              - Take screencast in a Selenium WebDriver test
-sda (0.9.1)                                       - A wrapper for Selenium. This library uses custom data attributes to accelerate testing through the Selenium framework
-selene (1.0.0a12)                                 - Concise API for selenium in Python + Ajax support + PageObjects (Selenide port from Java to Python)
-selenic (0.11.0)                                  - Some selenium infrastructure for testing.
-webtest-selenium (0.1)                            - Selenium testing with WebTest
-selenium-sunbro (0.0.3)                           - Easily create page objects with a declarative syntax
-selenium-utils (0.4)                              - Common utils for working with Selenium
-selenium (3.6.0)                                  - Python bindings for Selenium
-  INSTALLED: 3.4.3
-  LATEST:    3.6.0
-Selenium2LibraryExtension (1.1.0)                 - This library was created as an expansion to Selenium2Library. It was initially created as a solution to specific test cases that required overhead (such as calling inline javascripts or using many steps for one action). It also features bugfixes.
-selenium_extensions (0.1.2)                       - Tools that will make writing tests, bots and scrapers using Selenium much easier
-selenium_page_adapter (0.2.0)                     - PageAdapter pattern for Python Selenium browser test abstraction.
-selenium_unittest (0.2.3)                         - Selenium Unit Test Framework
-selenium_visitor (0.0.1)                          - A helper class for selenium driver
-selenium_wrapper (0.1)                            - Selenium driver wrapper and screenshots nosetests plugin
-seleniumbase (1.4.11)                             - Enterprise-Level Selenium Test Framework - seleniumbase.com
-seleniumconf (1.0)                                - 
-seleniumpm (2.13.0)                               - Selenium Pagemodel implementation for Python.
-seleniumwrapper (0.5.4)                           - selenium webdriver wrapper to make manipulation easier.
-selenose (1.3)                                    - Selenium plugin for nose and django-jenkins
-selexe (0.1.0)                                    - A tool to directly execute selenese files created by Selenium IDE
-selwsgi (0.1)                                     - A simple library to wrap wsgi apps in an evironment suitable to be unit tested with Selenium WebDriver
-shishito (2.4)                                    - Python module for selenium webdriver test execution
-sl_postbot (0.3.0)                                - selenium post bot for when you&#39;re away
-slick-webdriver (1.0.60)                          - A webdriver / selenium wrapper focusing on code completion, good page class design, and logging.
-webdriver-start (1.0.1)                           - Reliable module for starting up Selenium Webdriver, with custom user-agent and custom profile
-sulfur (0.1.4)                                    - A lightweight interface to python-selenium.
-sweetest (0.1.9)                                  - Web UI Autotest with Selenium &amp; Excel
-tbselenium (0.3.2)                                - Tor Browser automation with Selenium
-testcontainers (2.1.0)                            - Library provides lightweight, throwaway instances of common databases, Selenium web browsers, or anything else that can run in a Docker containers
-Testingbot (0.0.5)                                - Python selenium package to be used with TestingBot.com&#39;s Selenium Grid
-testnado (0.4.1)                                  - Tornado test helpers and Selenium testing with Tornado
-toolium (1.3.0)                                   - Wrapper tool of Selenium and Appium libraries to test web and mobile applications in a single project
-vom (0.2.0)                                       - An opinionated framework for writing page objects for selenium tests/scripts
-web_wrapper (0.2.2)                               - Web wrapper for Selenium/requests
-webdriver-wharf (0.4.0)                           - A docker-based warehouse of Selenium servers running chrome and firefox
-webdriver_controller (0.0.4)                      - a tool manages local Selenium Webdriver installation
-webdriverwrapper (2.6.0)                          - Better interface for WebDriver (Selenium 2).
-webdry (0.2)                                      - A set of functions for minimalistic interaction with Selenium WebDriver.
-WebElemental (1.4.5)                              - An elemental force for driving web pages using Selenium and Python.
-weblibrary (2.0.0)                                - Web testing library for Robot Framework Extended with Selenium2Library
-wedutil (0.21.2)                                  - Utilities for testing wed with Selenium.
-westeros (0.0.2)                                  - Test automation framework based on robot framework and selenium.
-yawn (0.1.1)                                      - Yawn is Awesome WickedNess for tests (it is a helper for selenium testing)
-z3c.webdriver (0.0.1)                             - A wrapper around selenium webdriver and some tools
-zc.selenium (1.2.1)                               - Selenium integration for Zope 3
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>これで足りないパッケージもその場でインストールできる</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[76]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip install ipython
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Requirement already satisfied: ipython in c:\users\zhang\python\python36-32\lib\site-packages
-Requirement already satisfied: pickleshare in c:\users\zhang\python\python36-32\lib\site-packages (from ipython)
-Requirement already satisfied: decorator in c:\users\zhang\python\python36-32\lib\site-packages (from ipython)
-Requirement already satisfied: prompt-toolkit&lt;2.0.0,&gt;=1.0.4 in c:\users\zhang\python\python36-32\lib\site-packages (from ipython)
-Requirement already satisfied: jedi&gt;=0.10 in c:\users\zhang\python\python36-32\lib\site-packages (from ipython)
-Requirement already satisfied: setuptools&gt;=18.5 in c:\users\zhang\python\python36-32\lib\site-packages (from ipython)
-Requirement already satisfied: traitlets&gt;=4.2 in c:\users\zhang\python\python36-32\lib\site-packages (from ipython)
-Requirement already satisfied: simplegeneric&gt;0.8 in c:\users\zhang\python\python36-32\lib\site-packages (from ipython)
-Requirement already satisfied: colorama; sys_platform == &#34;win32&#34; in c:\users\zhang\python\python36-32\lib\site-packages (from ipython)
-Requirement already satisfied: pygments in c:\users\zhang\python\python36-32\lib\site-packages (from ipython)
-Requirement already satisfied: wcwidth in c:\users\zhang\python\python36-32\lib\site-packages (from prompt-toolkit&lt;2.0.0,&gt;=1.0.4-&gt;ipython)
-Requirement already satisfied: six&gt;=1.9.0 in c:\users\zhang\python\python36-32\lib\site-packages (from prompt-toolkit&lt;2.0.0,&gt;=1.0.4-&gt;ipython)
-Requirement already satisfied: parso==0.1.0 in c:\users\zhang\python\python36-32\lib\site-packages (from jedi&gt;=0.10-&gt;ipython)
-Requirement already satisfied: ipython-genutils in c:\users\zhang\python\python36-32\lib\site-packages (from traitlets&gt;=4.2-&gt;ipython)
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[71]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>jq
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>jq - commandline JSON processor [version 1.5]
-Usage: C:\ProgramData\chocolatey\lib\jq\tools\jq.exe [options] &lt;jq filter&gt; [file...]
-
-	jq is a tool for processing JSON inputs, applying the
-	given filter to its JSON text inputs and producing the
-	filter&#39;s results as JSON on standard output.
-	The simplest filter is ., which is the identity filter,
-	copying jq&#39;s input to its output unmodified (except for
-	formatting).
-	For more advanced filters see the jq(1) manpage (&#34;man jq&#34;)
-	and/or https://stedolan.github.io/jq
-
-	Some of the options include:
-	 -c		compact instead of pretty-printed output;
-	 -n		use `null` as the single input value;
-	 -e		set the exit status code based on the output;
-	 -s		read (slurp) all inputs into an array; apply filter to it;
-	 -r		output raw strings, not JSON texts;
-	 -R		read raw strings, not JSON texts;
-	 -C		colorize JSON;
-	 -M		monochrome (don&#39;t colorize JSON);
-	 -S		sort keys of objects on output;
-	 --tab	use tabs for indentation;
-	 --arg a v	set variable $a to value &lt;v&gt;;
-	 --argjson a v	set variable $a to JSON value &lt;v&gt;;
-	 --slurpfile a f	set variable $a to an array of JSON texts read from &lt;f&gt;;
-	See the manpage for more options.
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>curlコマンドも打てる</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[55]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>curl -k https://bl01.techfirm.co.jp/backlog/api/v2/projects?apiKey<span class="o">=</span>s2cxW4bPko4zc3ETSquSAv80Omtq2GWESTTd24LxiVoCQKQwAAQlFZUMfKrMz3jP
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[{&#34;id&#34;:225,&#34;projectKey&#34;:&#34;CR_DEV&#34;,&#34;name&#34;:&#34;ChickenRice-dev&#34;,&#34;chartEnabled&#34;:true,&#34;subtaskingEnabled&#34;:true,&#34;projectLeaderCanEditProjectLeader&#34;:false,&#34;useWikiTreeView&#34;:false,&#34;textFormattingRule&#34;:&#34;backlog&#34;,&#34;archived&#34;:false,&#34;displayOrder&#34;:2147483646},{&#34;id&#34;:324,&#34;projectKey&#34;:&#34;CR_TEST&#34;,&#34;name&#34;:&#34;ChickenRice-TEST&#34;,&#34;chartEnabled&#34;:true,&#34;subtaskingEnabled&#34;:true,&#34;projectLeaderCanEditProjectLeader&#34;:false,&#34;useWikiTreeView&#34;:false,&#34;textFormattingRule&#34;:&#34;backlog&#34;,&#34;archived&#34;:false,&#34;displayOrder&#34;:2147483646}]
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100   489  100   489    0     0   3912      0 --:--:-- --:--:-- --:--:--  3912
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[56]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>curl -k https://bl01.techfirm.co.jp/backlog/api/v2/projects?apiKey<span class="o">=</span>s2cxW4bPko4zc3ETSquSAv80Omtq2GWESTTd24LxiVoCQKQwAAQlFZUMfKrMz3jP <span class="p">|</span> jq <span class="s2">&quot;.&quot;</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[
-  {
-    &#34;id&#34;: 225,
-    &#34;projectKey&#34;: &#34;CR_DEV&#34;,
-    &#34;name&#34;: &#34;ChickenRice-dev&#34;,
-    &#34;chartEnabled&#34;: true,
-    &#34;subtaskingEnabled&#34;: true,
-    &#34;projectLeaderCanEditProjectLeader&#34;: false,
-    &#34;useWikiTreeView&#34;: false,
-    &#34;textFormattingRule&#34;: &#34;backlog&#34;,
-    &#34;archived&#34;: false,
-    &#34;displayOrder&#34;: 2147483646
-  },
-  {
-    &#34;id&#34;: 324,
-    &#34;projectKey&#34;: &#34;CR_TEST&#34;,
-    &#34;name&#34;: &#34;ChickenRice-TEST&#34;,
-    &#34;chartEnabled&#34;: true,
-    &#34;subtaskingEnabled&#34;: true,
-    &#34;projectLeaderCanEditProjectLeader&#34;: false,
-    &#34;useWikiTreeView&#34;: false,
-    &#34;textFormattingRule&#34;: &#34;backlog&#34;,
-    &#34;archived&#34;: false,
-    &#34;displayOrder&#34;: 2147483646
-  }
-]
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100   489  100   489    0     0   5202      0 --:--:-- --:--:-- --:--:--  5202
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[83]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>curl -k https://bl01.techfirm.co.jp/backlog/api/v2/projects?apiKey<span class="o">=</span>s2cxW4bPko4zc3ETSquSAv80Omtq2GWESTTd24LxiVoCQKQwAAQlFZUMfKrMz3jP <span class="p">|</span> jq <span class="s2">&quot;.[0].id&quot;</span>
-</pre></div>
-
-</div>
 </div>
 </div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>225
-</pre>
 </div>
 </div>
 
-<div class="output_area">
+<script>
 
-<div class="prompt"></div>
+require(
+    {
+      // it makes sense to wait a little bit when you are loading
+      // reveal from a cdn in a slow connection environment
+      waitSeconds: 15
+    },
+    [
+      "reveal.js/lib/js/head.min.js",
+      "reveal.js/js/reveal.js"
+    ],
 
+    function(head, Reveal){
 
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
+        // Full list of configuration options available here: https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
 
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100   489  100   489    0     0   5258      0 --:--:-- --:--:-- --:--:--  5258
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[84]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>curl -k -X POST --data <span class="s2">&quot;action=login&amp;username=azkaban&amp;password=azkaban&quot;</span> http://10.14.28.53:8081 <span class="p">|</span> jq .<span class="se">\&quot;</span>session.id<span class="se">\&quot;</span> &gt; jsondata.txt
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
+            transition: "slide",
 
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: "reveal.js/lib/js/classList.js",
+                  condition: function() { return !document.body.classList; } },
+                { src: "reveal.js/plugin/notes/notes.js",
+                  async: true,
+                  condition: function() { return !!document.body.classList; } }
+            ]
+        });
 
-<div class="output_area">
+        var update = function(event){
+          if(MathJax.Hub.getAllJax(Reveal.getCurrentSlide())){
+            MathJax.Hub.Rerender(Reveal.getCurrentSlide());
+          }
+        };
 
-<div class="prompt"></div>
+        Reveal.addEventListener('slidechanged', update);
 
+        function setScrollingSlide() {
+            var scroll = false
+            if (scroll === true) {
+              var h = $('.reveal').height() * 0.95;
+              $('section.present').find('section')
+                .filter(function() {
+                  return $(this).height() > h;
+                })
+                .css('height', 'calc(95vh)')
+                .css('overflow-y', 'scroll')
+                .css('margin-top', '20px');
+            }
+        }
 
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
+        // check and set the scrolling slide every time the slide change
+        Reveal.addEventListener('slidechanged', setScrollingSlide);
 
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100   129  100    83  100    46   2677   1483 --:--:-- --:--:-- --:--:--  2677
-</pre>
-</div>
-</div>
+    }
 
-</div>
-</div>
+);
+</script>
 
-</div>
-    </div>
-  </div>
 </body>
-
- 
 
 
 </html>
