@@ -1,8 +1,0 @@
-{
-    "mail_subject" : "MV03",
-    "mail_content" : " 下書き保存、ファイル添付、メール添付、メール送信",
-    "mail_box_attach" : "プライベートの方",
-    "mail_keyword_attach" : "傘",
-    "data_folder": "data_file",
-    "file_name" : "添付ファイル.tgz"
-}
