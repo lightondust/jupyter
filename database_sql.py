@@ -7,7 +7,7 @@ class Database():
     def __init__(self):
         self.host = "localhost"
         self.user = "root"
-        self.password = "password"
+        self.password = ""
         self.database = ""
         self.charset = "utf8"
         self.sql = ""
